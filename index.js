@@ -37,29 +37,26 @@ function reset(){
     location.reload();
 }
     
-const button = document.getElementById("copy1");
-const elementToCopy = document.querySelector("#pwd1");
-const textToCopy = elementToCopy.innerText;
+function copyToClipboard(elementId) {
+            const passwordElement = document.getElementById(elementId);
+            const passwordText = passwordElement.textContent;
 
-function copy ( text ) {
-  navigator.clipboard.writeText( text )
-}
+            if (!navigator.clipboard) {
+                // For browsers that don't support Clipboard API
+                alert("Copying to clipboard is not supported by your browser. Please try a different browser or manually copy the password.");
+                return;
+            }
 
-button.addEventListener( 'click' , () => {
-  copy( textToCopy )
-})
-    
-const button1 = document.getElementById("copy2");
-const elementToCopy1 = document.querySelector("#pwd2");
-const textToCopy1 = elementToCopy.innerText;
-
-function copy1 ( text ) {
-  navigator.clipboard.writeText( text )
-}
-
-button1.addEventListener( 'click' , () => {
-  copy( textToCopy1 )
-})
+            navigator.clipboard.writeText(passwordText)
+                .then(() => {
+                    alert("Password copied successfully!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy password:", err);
+                    alert("Failed to copy password. Please try again.");
+                });
+        }
+   
 
 
 
